@@ -26,11 +26,6 @@ def gitCommits = Integer.parseInt('git rev-list HEAD --count'.execute().text.tri
 android {
     compileSdk = compile_sdk_version
     namespace 'io.legado.app'
-    kotlin {
-        jvmToolchain {
-            languageVersion.set(JavaLanguageVersion.of(17))
-        }
-    }
 
     signingConfigs {
         if (project.hasProperty("RELEASE_STORE_FILE")) {
@@ -126,8 +121,11 @@ android {
         // Flag to enable support for the new language APIs
         coreLibraryDesugaringEnabled true
         // Sets Java compatibility
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
     }
     packaging {
         resources.excludes.add('META-INF/*')
